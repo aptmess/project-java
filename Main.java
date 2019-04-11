@@ -14,10 +14,11 @@ public class Main
 {
 	static boolean drawMode=false; // отвечает за возможность задавания точек исходных треугольников на экранеы
 	static ArrayList <Dot> dots= new ArrayList<Dot>(); //массив точек треугольников, отображаемых на экране
+	static  World world = new World();
 	public static void main(String[] args) throws InterruptedException, IOException 
     {
         JFrame frame = new JFrame("Проект"); // создаем Frame
-        World world = new World();
+       
         TrianglePanel panel = new TrianglePanel(world);
         frame.add(panel);
         panel.setBackground(Color.black);
@@ -65,8 +66,6 @@ public class Main
 			@Override
         	public void actionPerformed(ActionEvent e) 
         	{
-				//world.draw(panel.getGraphics());
-				//System.out.println(world.triangles.size());
 				drawMode = false;
         	}
         	}
@@ -86,8 +85,6 @@ public class Main
         frame.setResizable( false );
         while (true) 
         {
-        	
-        	
         	if(panel.paused==true)
         	{
         		frame.repaint();
@@ -101,11 +98,13 @@ public class Main
         	if(panel.paused3==true)
         	{
         		frame.repaint();
-        		panel.setPaused(false);
         	}
+        	if(panel.paused3==false)
+        	{
         	for (int i =0 ; i<dots.size(); i++)
         	{
         		dots.get(i).draw(panel.getGraphics());//рисование точек на экране
+        	}
         	}
         	Thread.sleep(10);
         }
