@@ -3,18 +3,18 @@ package porjecttry;
 import java.awt.*;
 import java.util.Random;
 import java.util.ArrayList;
-public class World //рисование мира треугольников и широких лучей
-{	int amount_of_triangles =5; //задается количество треугольников
-	int amount_of_wideluch =1; //задается количество широких лучей
-	int gran =200; //задается окоемка границы, в пределах данной границы будут генерироваться случайно заданные точки
-	int vnutri=0;//переменная-счетчик, отвечающая за подсчет количества точек треугольника, входящих в широкий луч
-	Random rand = new Random();// для генерации случайных координат вершин треугольника
-	public ArrayList<Triangles> triangles = new ArrayList<>();// массив треугольников
-	public ArrayList<WideLuch> wideLuch = new ArrayList<>();//массив широких лучей
-	public ArrayList<Triangles> newtriangles = new ArrayList<>();// массив треугольников, прошедщих проверку на кандидата-треугольника, у которого может быть максимальная площадь пересечения с широким лучом
-	double koef[] = new double[amount_of_wideluch*2]; //массив коэффициента наклона прямой, четный i-ый элемент-коээфицент наклона широкого луча через две начальные точки, нечетный i-ый элемент- коэффициент прямхы широкого луча, перпендикулярных заданной прямой 
-	double pov[] = new double[amount_of_wideluch*2]; //массив коэффициентов pov в уравнении прямой y=koef*x+pov прямых препендикулярных исходной прямой широкого луча
-	double no[] = new double[amount_of_wideluch];//массив коэффициентов no уравнения начальной прямой широкого луча
+public class World //СЂРёСЃРѕРІР°РЅРёРµ РјРёСЂР° С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ Рё С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
+{	int amount_of_triangles =5; //Р·Р°РґР°РµС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
+	int amount_of_wideluch =1; //Р·Р°РґР°РµС‚СЃСЏ РєРѕР»РёС‡РµСЃС‚РІРѕ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
+	int gran =200; //Р·Р°РґР°РµС‚СЃСЏ РѕРєРѕРµРјРєР° РіСЂР°РЅРёС†С‹, РІ РїСЂРµРґРµР»Р°С… РґР°РЅРЅРѕР№ РіСЂР°РЅРёС†С‹ Р±СѓРґСѓС‚ РіРµРЅРµСЂРёСЂРѕРІР°С‚СЊСЃСЏ СЃР»СѓС‡Р°Р№РЅРѕ Р·Р°РґР°РЅРЅС‹Рµ С‚РѕС‡РєРё
+	int vnutri=0;//РїРµСЂРµРјРµРЅРЅР°СЏ-СЃС‡РµС‚С‡РёРє, РѕС‚РІРµС‡Р°СЋС‰Р°СЏ Р·Р° РїРѕРґСЃС‡РµС‚ РєРѕР»РёС‡РµСЃС‚РІР° С‚РѕС‡РµРє С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°, РІС…РѕРґСЏС‰РёС… РІ С€РёСЂРѕРєРёР№ Р»СѓС‡
+	Random rand = new Random();// РґР»СЏ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚ РІРµСЂС€РёРЅ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+	public ArrayList<Triangles> triangles = new ArrayList<>();// РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
+	public ArrayList<WideLuch> wideLuch = new ArrayList<>();//РјР°СЃСЃРёРІ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
+	public ArrayList<Triangles> newtriangles = new ArrayList<>();// РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ, РїСЂРѕС€РµРґС‰РёС… РїСЂРѕРІРµСЂРєСѓ РЅР° РєР°РЅРґРёРґР°С‚Р°-С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°, Сѓ РєРѕС‚РѕСЂРѕРіРѕ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РїР»РѕС‰Р°РґСЊ РїРµСЂРµСЃРµС‡РµРЅРёСЏ СЃ С€РёСЂРѕРєРёРј Р»СѓС‡РѕРј
+	double koef[] = new double[amount_of_wideluch*2]; //РјР°СЃСЃРёРІ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РЅР°РєР»РѕРЅР° РїСЂСЏРјРѕР№, С‡РµС‚РЅС‹Р№ i-С‹Р№ СЌР»РµРјРµРЅС‚-РєРѕСЌСЌС„РёС†РµРЅС‚ РЅР°РєР»РѕРЅР° С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р° С‡РµСЂРµР· РґРІРµ РЅР°С‡Р°Р»СЊРЅС‹Рµ С‚РѕС‡РєРё, РЅРµС‡РµС‚РЅС‹Р№ i-С‹Р№ СЌР»РµРјРµРЅС‚- РєРѕСЌС„С„РёС†РёРµРЅС‚ РїСЂСЏРјС…С‹ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°, РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹С… Р·Р°РґР°РЅРЅРѕР№ РїСЂСЏРјРѕР№ 
+	double pov[] = new double[amount_of_wideluch*2]; //РјР°СЃСЃРёРІ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ pov РІ СѓСЂР°РІРЅРµРЅРёРё РїСЂСЏРјРѕР№ y=koef*x+pov РїСЂСЏРјС‹С… РїСЂРµРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹С… РёСЃС…РѕРґРЅРѕР№ РїСЂСЏРјРѕР№ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
+	double no[] = new double[amount_of_wideluch];//РјР°СЃСЃРёРІ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ no СѓСЂР°РІРЅРµРЅРёСЏ РЅР°С‡Р°Р»СЊРЅРѕР№ РїСЂСЏРјРѕР№ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
 	public ArrayList<PointsVnutri> pointsvnutri = new ArrayList<>();
 	public ArrayList<PointsVerh> pointsverh = new ArrayList<>();
 	public ArrayList<PointsVniz> pointsvniz = new ArrayList<>();
@@ -39,30 +39,31 @@ public class World //рисование мира треугольников и широких лучей
 			updates();
 			b+=1;
 		}
-		for (int i = 0; i < triangles.size(); ++i)//рисование исходных треугольников
+		for (int i = 0; i < triangles.size(); ++i)//СЂРёСЃРѕРІР°РЅРёРµ РёСЃС…РѕРґРЅС‹С… С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
 		{
 			triangles.get(i).draw1(g);
 		}
-		if (wideLuch.size()!=amount_of_wideluch*3)//выполнение фунеции updates1,  умножение на 3, так как в каждом широком луче три элемента - прямая исходная и две перпендикулярные
+		if (wideLuch.size()!=amount_of_wideluch*3)//РІС‹РїРѕР»РЅРµРЅРёРµ С„СѓРЅРµС†РёРё updates1,  СѓРјРЅРѕР¶РµРЅРёРµ РЅР° 3, С‚Р°Рє РєР°Рє РІ РєР°Р¶РґРѕРј С€РёСЂРѕРєРѕРј Р»СѓС‡Рµ С‚СЂРё СЌР»РµРјРµРЅС‚Р° - РїСЂСЏРјР°СЏ РёСЃС…РѕРґРЅР°СЏ Рё РґРІРµ РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹Рµ
 		{
 			updates1(g);
 		} 
-		for (int i = 0; i < wideLuch.size(); ++i)//рисование широких лучей
+		for (int i = 0; i < wideLuch.size(); ++i)//СЂРёСЃРѕРІР°РЅРёРµ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
 		{
 			wideLuch.get(i).draw1(g);
 		} 
 	}
 	void drawtriangles2(Graphics g)
 	{
-		for (int i = 0; i < triangles.size(); ++i)//рисование исходных треугольников
+		System.out.println(triangles.size());
+		for (int i = 0; i < triangles.size(); ++i)//СЂРёСЃРѕРІР°РЅРёРµ РёСЃС…РѕРґРЅС‹С… С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
 		{
 			triangles.get(i).draw1(g);
 		}
-		if (wideLuch.size()!=amount_of_wideluch*3)//выполнение фунеции updates1,  умножение на 3, так как в каждом широком луче три элемента - прямая исходная и две перпендикулярные
+		if (wideLuch.size()!=amount_of_wideluch*3)//РІС‹РїРѕР»РЅРµРЅРёРµ С„СѓРЅРµС†РёРё updates1,  СѓРјРЅРѕР¶РµРЅРёРµ РЅР° 3, С‚Р°Рє РєР°Рє РІ РєР°Р¶РґРѕРј С€РёСЂРѕРєРѕРј Р»СѓС‡Рµ С‚СЂРё СЌР»РµРјРµРЅС‚Р° - РїСЂСЏРјР°СЏ РёСЃС…РѕРґРЅР°СЏ Рё РґРІРµ РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹Рµ
 		{
 			updates1(g);
 		} 
-		for (int i = 0; i < wideLuch.size(); ++i)//рисование широких лучей
+		for (int i = 0; i < wideLuch.size(); ++i)//СЂРёСЃРѕРІР°РЅРёРµ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
 		{
 			wideLuch.get(i).draw1(g);
 		} 
@@ -71,26 +72,34 @@ public class World //рисование мира треугольников и широких лучей
     {
 			if (newtriangles.size()!=0)
 			{
-				for (int i = 0; i < wideLuch.size(); ++i)//рисование широких лучей
+				for (int i = 0; i < wideLuch.size(); ++i)//СЂРёСЃРѕРІР°РЅРёРµ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
 				{
 					wideLuch.get(i).draw1(g);
 				} 
-				for (int i = 0; i < newtriangles.size(); ++i)//рисование треугольников, прошедших проверку на возможность быть кандидатом-треугольником с наибольшей площадью пересечения
+				for (int i = 0; i < newtriangles.size(); ++i)//СЂРёСЃРѕРІР°РЅРёРµ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ, РїСЂРѕС€РµРґС€РёС… РїСЂРѕРІРµСЂРєСѓ РЅР° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ Р±С‹С‚СЊ РєР°РЅРґРёРґР°С‚РѕРј-С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРј СЃ РЅР°РёР±РѕР»СЊС€РµР№ РїР»РѕС‰Р°РґСЊСЋ РїРµСЂРµСЃРµС‡РµРЅРёСЏ
 				{
+					//newtriangles.get(i).draw1(g);
+				}
+			for( int i =0; i< bigsum.size();++i)
+			{
+				if(bigsum.get(i).sum==BIGSUMMA)
+				{
+					figure_inside.get(i).draw4(g);
 					newtriangles.get(i).draw1(g);
-				} 
-			newtriangles.get(t).draw1(g);
-			figure_inside.get(t).draw4(g);
+				}
+					
+			}
+			
 			}
     }
 	void updates()
 	{
-        for (int i = 0; i < amount_of_triangles; i++)//генерируем массив треугольников 
+        for (int i = 0; i < amount_of_triangles; i++)//РіРµРЅРµСЂРёСЂСѓРµРј РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ 
         {
         	
-        	int k[]= {rand.nextInt(TrianglePanel.WIDTH-gran),rand.nextInt(TrianglePanel.WIDTH-gran),rand.nextInt(TrianglePanel.WIDTH-gran)};//3 случайные координаты по x вершин треугольника
-        	int g[]= {rand.nextInt(TrianglePanel.HEIGHT-gran),rand.nextInt(TrianglePanel.HEIGHT-gran),rand.nextInt(TrianglePanel.HEIGHT-gran)}; //три случайные коориднаты по y вершин тругольника
-            triangles.add(new Triangles(k,g));//добавление нового треугольника в массив треугольников triangles
+        	int k[]= {rand.nextInt(TrianglePanel.WIDTH-gran),rand.nextInt(TrianglePanel.WIDTH-gran),rand.nextInt(TrianglePanel.WIDTH-gran)};//3 СЃР»СѓС‡Р°Р№РЅС‹Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРѕ x РІРµСЂС€РёРЅ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+        	int g[]= {rand.nextInt(TrianglePanel.HEIGHT-gran),rand.nextInt(TrianglePanel.HEIGHT-gran),rand.nextInt(TrianglePanel.HEIGHT-gran)}; //С‚СЂРё СЃР»СѓС‡Р°Р№РЅС‹Рµ РєРѕРѕСЂРёРґРЅР°С‚С‹ РїРѕ y РІРµСЂС€РёРЅ С‚СЂСѓРіРѕР»СЊРЅРёРєР°
+            triangles.add(new Triangles(k,g));//РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РІ РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ triangles
         }
 	}  
 	void updates11()
@@ -99,73 +108,73 @@ public class World //рисование мира треугольников и широких лучей
 		int g[]= {dots.get(0).getY(),dots.get(1).getY(),dots.get(2).getY()};
 		triangles.add(new Triangles(k,g));
 	}  
-    void updates1(Graphics g) //нахождение наибольшой площади пересечения
+    void updates1(Graphics g) //РЅР°С…РѕР¶РґРµРЅРёРµ РЅР°РёР±РѕР»СЊС€РѕР№ РїР»РѕС‰Р°РґРё РїРµСЂРµСЃРµС‡РµРЅРёСЏ
     {
     	int r=0;
     	int u=0;
-    	for (int i = 0; i < amount_of_wideluch; i++)// генерация широких лучей
+    	for (int i = 0; i < amount_of_wideluch; i++)// РіРµРЅРµСЂР°С†РёСЏ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№
         {
-    		int x1 = rand.nextInt(TrianglePanel.WIDTH-gran);//рандомная координата 4-x точек, через которую пройдет первая прямая: x1,y1,x2,y2
+    		int x1 = rand.nextInt(TrianglePanel.WIDTH-gran);//СЂР°РЅРґРѕРјРЅР°СЏ РєРѕРѕСЂРґРёРЅР°С‚Р° 4-x С‚РѕС‡РµРє, С‡РµСЂРµР· РєРѕС‚РѕСЂСѓСЋ РїСЂРѕР№РґРµС‚ РїРµСЂРІР°СЏ РїСЂСЏРјР°СЏ: x1,y1,x2,y2
          	int y1 = rand.nextInt(TrianglePanel.HEIGHT-gran);
          	int x2 = rand.nextInt(TrianglePanel.WIDTH-gran);
          	int y2 = rand.nextInt(TrianglePanel.HEIGHT-gran);
-         	koef[r] = (double)(y2-y1)/(x2-x1);//добавление на четный элемент массива значения коэффициента наклона данной прямой
-     		no[u]=(double)(y2-x2*koef[r]);//добавление на элемент массива значения коэффициента подъема данной начальной прямой
-     		koef[r+1] =(double)((-1)/(koef[r]));// ищем коэффициент наклона двух прямых, перпендикулярных начальной, составляющей широкий луч
-     		pov[r] = (double)(y1-(koef[r+1])*x1);//добавление на четный элемент массива значения коэффициента подъема перпендикулярной начальной нижней прямой широкого луча
-     		pov[r+1] = (double)(y2-(koef[r+1])*x2);//добавление на нечетный элемент массива значения коэффициента подъема перпендикулярной начальной верхней прямой широкого луча
-            wideLuch.add(new WideLuch(x1,y1,x2,y2));//добавление в массив широких лучей исходной прямой
-            wideLuch.add(new WideLuch(x1,y1,TrianglePanel.WIDTH,(int) (koef[r+1]*TrianglePanel.WIDTH+pov[r])));//перпендикулярной ей нижней
-            wideLuch.add(new WideLuch(x2,y2,TrianglePanel.WIDTH,(int) (koef[r+1]*TrianglePanel.WIDTH+pov[r+1])));//перпенидкулярной ей верхней
+         	koef[r] = (double)(y2-y1)/(x2-x1);//РґРѕР±Р°РІР»РµРЅРёРµ РЅР° С‡РµС‚РЅС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° Р·РЅР°С‡РµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РЅР°РєР»РѕРЅР° РґР°РЅРЅРѕР№ РїСЂСЏРјРѕР№
+     		no[u]=(double)(y2-x2*koef[r]);//РґРѕР±Р°РІР»РµРЅРёРµ РЅР° СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° Р·РЅР°С‡РµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РїРѕРґСЉРµРјР° РґР°РЅРЅРѕР№ РЅР°С‡Р°Р»СЊРЅРѕР№ РїСЂСЏРјРѕР№
+     		koef[r+1] =(double)((-1)/(koef[r]));// РёС‰РµРј РєРѕСЌС„С„РёС†РёРµРЅС‚ РЅР°РєР»РѕРЅР° РґРІСѓС… РїСЂСЏРјС‹С…, РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅС‹С… РЅР°С‡Р°Р»СЊРЅРѕР№, СЃРѕСЃС‚Р°РІР»СЏСЋС‰РµР№ С€РёСЂРѕРєРёР№ Р»СѓС‡
+     		pov[r] = (double)(y1-(koef[r+1])*x1);//РґРѕР±Р°РІР»РµРЅРёРµ РЅР° С‡РµС‚РЅС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° Р·РЅР°С‡РµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РїРѕРґСЉРµРјР° РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅРѕР№ РЅР°С‡Р°Р»СЊРЅРѕР№ РЅРёР¶РЅРµР№ РїСЂСЏРјРѕР№ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
+     		pov[r+1] = (double)(y2-(koef[r+1])*x2);//РґРѕР±Р°РІР»РµРЅРёРµ РЅР° РЅРµС‡РµС‚РЅС‹Р№ СЌР»РµРјРµРЅС‚ РјР°СЃСЃРёРІР° Р·РЅР°С‡РµРЅРёСЏ РєРѕСЌС„С„РёС†РёРµРЅС‚Р° РїРѕРґСЉРµРјР° РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅРѕР№ РЅР°С‡Р°Р»СЊРЅРѕР№ РІРµСЂС…РЅРµР№ РїСЂСЏРјРѕР№ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
+            wideLuch.add(new WideLuch(x1,y1,x2,y2));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С€РёСЂРѕРєРёС… Р»СѓС‡РµР№ РёСЃС…РѕРґРЅРѕР№ РїСЂСЏРјРѕР№
+            wideLuch.add(new WideLuch(x1,y1,TrianglePanel.WIDTH,(int) (koef[r+1]*TrianglePanel.WIDTH+pov[r])));//РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅРѕР№ РµР№ РЅРёР¶РЅРµР№
+            wideLuch.add(new WideLuch(x2,y2,TrianglePanel.WIDTH,(int) (koef[r+1]*TrianglePanel.WIDTH+pov[r+1])));//РїРµСЂРїРµРЅРёРґРєСѓР»СЏСЂРЅРѕР№ РµР№ РІРµСЂС…РЅРµР№
             r=r+2;
             u=u+1;
          }
-    	 for( int b=0; b < amount_of_wideluch; ++b)//проверка на принадлежность точки треугольника определенной области - внутри широго луча, слева от луча, сверху от луча, снизу от луча и.т.д...
+    	 for( int b=0; b < amount_of_wideluch; ++b)//РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚СЊ С‚РѕС‡РєРё С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РѕРїСЂРµРґРµР»РµРЅРЅРѕР№ РѕР±Р»Р°СЃС‚Рё - РІРЅСѓС‚СЂРё С€РёСЂРѕРіРѕ Р»СѓС‡Р°, СЃР»РµРІР° РѕС‚ Р»СѓС‡Р°, СЃРІРµСЂС…Сѓ РѕС‚ Р»СѓС‡Р°, СЃРЅРёР·Сѓ РѕС‚ Р»СѓС‡Р° Рё.С‚.Рґ...
     	 {
     		 for( int i=0; i < amount_of_triangles; ++i)
     		 {
     			 for(int j=0; j < 3; ++j)
     			 {
-    				 if (pov[2*b]>pov[2*b+1])//если коэффициент подъема нижней прямой больше верхней 
+    				 if (pov[2*b]>pov[2*b+1])//РµСЃР»Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° РЅРёР¶РЅРµР№ РїСЂСЏРјРѕР№ Р±РѕР»СЊС€Рµ РІРµСЂС…РЅРµР№ 
     				 {
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// проверка на принадлженость лучу внутри
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РІРЅСѓС‚СЂРё
     					 {
-    						 pointsvnutri.add(new PointsVnutri(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих внутри широкого луча
+    						 pointsvnutri.add(new PointsVnutri(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… РІРЅСѓС‚СЂРё С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// проверка на принадлженость лучу именно сверху
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃРІРµСЂС…Сѓ
     					 {
-    						 pointsverh.add(new PointsVerh(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих сверху широкого луча
+    						 pointsverh.add(new PointsVerh(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃРІРµСЂС…Сѓ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// проверка на принадлженость лучу именно снизу
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃРЅРёР·Сѓ
     					 {
-    						 pointsvniz.add(new PointsVniz(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих снизу широкого луча
+    						 pointsvniz.add(new PointsVniz(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃРЅРёР·Сѓ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)>0))// проверка на принадлженость лучу именно слева
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)>0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃР»РµРІР°
     					 {
-    						 pointsleva.add(new PointsSleva(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих слева от широкого луча
+    						 pointsleva.add(new PointsSleva(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃР»РµРІР° РѕС‚ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)>0))// проверка на принадлженость лучу именно слева
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)>0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃР»РµРІР°
     					 {
-    						 pointslevaverh.add(new PointsSlevaVerh(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих слева от широкого луча
+    						 pointslevaverh.add(new PointsSlevaVerh(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃР»РµРІР° РѕС‚ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)>0))// проверка на принадлженость лучу именно слева
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)>0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃР»РµРІР°
     					 {
-    						 pointslevavniz.add(new PointsSlevaVniz(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих слева от широкого луча
+    						 pointslevavniz.add(new PointsSlevaVniz(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃР»РµРІР° РѕС‚ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
     				 }
-    				 if (pov[2*b]<pov[2*b+1])//если коэффициент подъема нижней прямой меньше верхней 
+    				 if (pov[2*b]<pov[2*b+1])//РµСЃР»Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° РЅРёР¶РЅРµР№ РїСЂСЏРјРѕР№ РјРµРЅСЊС€Рµ РІРµСЂС…РЅРµР№ 
     				 {
     					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])
     							 &&(triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1])
@@ -194,17 +203,17 @@ public class World //рисование мира треугольников и широких лучей
     					 {
     						 pointsleva.add(new PointsSleva(triangles.get(i).x[j],triangles.get(i).y[j]));
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// проверка на принадлженость лучу именно слева
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] >= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃР»РµРІР°
     					 {
-    						 pointslevaverh.add(new PointsSlevaVerh(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих слева от широкого луча
+    						 pointslevaverh.add(new PointsSlevaVerh(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃР»РµРІР° РѕС‚ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
-    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1]) //если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет > pov[2*b+1]
-    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//если черех точку треугольника провести прямую параллельную широкому лучу и коэффициент подъема будет < pov[2*b]
-    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// проверка на принадлженость лучу именно слева
+    					 if((triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b+1]) //РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ > pov[2*b+1]
+    							 &&( triangles.get(i).y[j]-triangles.get(i).x[j]*koef[2*b+1] <= pov[2*b])//РµСЃР»Рё С‡РµСЂРµС… С‚РѕС‡РєСѓ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РїСЂРѕРІРµСЃС‚Рё РїСЂСЏРјСѓСЋ РїР°СЂР°Р»Р»РµР»СЊРЅСѓСЋ С€РёСЂРѕРєРѕРјСѓ Р»СѓС‡Сѓ Рё РєРѕСЌС„С„РёС†РёРµРЅС‚ РїРѕРґСЉРµРјР° Р±СѓРґРµС‚ < pov[2*b]
+    							 &&((triangles.get(i).x[j]-wideLuch.get(b).x1)*(wideLuch.get(b).y2-wideLuch.get(b).y1)-(triangles.get(i).y[j]-wideLuch.get(b).y1)*(wideLuch.get(b).x2-wideLuch.get(b).x1)<0))// РїСЂРѕРІРµСЂРєР° РЅР° РїСЂРёРЅР°РґР»Р¶РµРЅРѕСЃС‚СЊ Р»СѓС‡Сѓ РёРјРµРЅРЅРѕ СЃР»РµРІР°
     					 {
-    						 pointslevavniz.add(new PointsSlevaVniz(triangles.get(i).x[j],triangles.get(i).y[j]));//добавление в массив точек, лежащих слева от широкого луча
+    						 pointslevavniz.add(new PointsSlevaVniz(triangles.get(i).x[j],triangles.get(i).y[j]));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє, Р»РµР¶Р°С‰РёС… СЃР»РµРІР° РѕС‚ С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
     					 }
     				 }
     			 }
@@ -240,7 +249,7 @@ public class World //рисование мира треугольников и широких лучей
         				 newy[2]=rrr12;
     				 }
     				 figure_inside.add(new FigureInside(newx,newy,3));
-    				 figure_inside.get(count).draw4(g);
+    				 //figure_inside.get(count).draw4(g);
     				 double first = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[1]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[1]-figure_inside.get(count).x[0],2));
     				 double second = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[1],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[1],2));
     				 double third = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
@@ -253,17 +262,19 @@ public class World //рисование мира треугольников и широких лучей
     					t=count;
     				 }
     				 count+=1;
+    				 System.out.println(S);
+    				 System.out.println("VNIZ");
      			 }
-    			 if((pointsvnutri.size()==1)&&(pointsvniz.size()==2))//случай если одна точка внутри широкого луча и две точки вверху
+    			 if((pointsvnutri.size()==1)&&(pointsvniz.size()==2))//СЃР»СѓС‡Р°Р№ РµСЃР»Рё РѕРґРЅР° С‚РѕС‡РєР° РІРЅСѓС‚СЂРё С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р° Рё РґРІРµ С‚РѕС‡РєРё РІРІРµСЂС…Сѓ
     			 { 
-    				 newtriangles.add(new Triangles(triangles.get(i).x,triangles.get(i).y));//добавление в массив треугольников, которые могут иметь наибольшую площадь пересечения
-    				 newx[0]=pointsvnutri.get(0).x;//первый элемент в массиве координат x новой фигуры , образованной при пересечении треугольника и широкого луча
-    				 newy[0]=pointsvnutri.get(0).y;//первый элемент в массиве координат y новой фигуры , образованной при пересечении треугольника и широкого луча
-    				 double koef1=(double)(pointsvniz.get(0).y-pointsvnutri.get(0).y)/(pointsvniz.get(0).x-pointsvnutri.get(0).x);//вычисление коэффициентов двух прямых через две точки
+    				 newtriangles.add(new Triangles(triangles.get(i).x,triangles.get(i).y));//РґРѕР±Р°РІР»РµРЅРёРµ РІ РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ, РєРѕС‚РѕСЂС‹Рµ РјРѕРіСѓС‚ РёРјРµС‚СЊ РЅР°РёР±РѕР»СЊС€СѓСЋ РїР»РѕС‰Р°РґСЊ РїРµСЂРµСЃРµС‡РµРЅРёСЏ
+    				 newx[0]=pointsvnutri.get(0).x;//РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РІ РјР°СЃСЃРёРІРµ РєРѕРѕСЂРґРёРЅР°С‚ x РЅРѕРІРѕР№ С„РёРіСѓСЂС‹ , РѕР±СЂР°Р·РѕРІР°РЅРЅРѕР№ РїСЂРё РїРµСЂРµСЃРµС‡РµРЅРёРё С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° Рё С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
+    				 newy[0]=pointsvnutri.get(0).y;//РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚ РІ РјР°СЃСЃРёРІРµ РєРѕРѕСЂРґРёРЅР°С‚ y РЅРѕРІРѕР№ С„РёРіСѓСЂС‹ , РѕР±СЂР°Р·РѕРІР°РЅРЅРѕР№ РїСЂРё РїРµСЂРµСЃРµС‡РµРЅРёРё С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° Рё С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р°
+    				 double koef1=(double)(pointsvniz.get(0).y-pointsvnutri.get(0).y)/(pointsvniz.get(0).x-pointsvnutri.get(0).x);//РІС‹С‡РёСЃР»РµРЅРёРµ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРІ РґРІСѓС… РїСЂСЏРјС‹С… С‡РµСЂРµР· РґРІРµ С‚РѕС‡РєРё
     				 double b1 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef1);
     				 double koef2=(double)(pointsvniz.get(1).y-pointsvnutri.get(0).y)/(pointsvniz.get(1).x-pointsvnutri.get(0).x);
     				 double b2 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef2);
-    				 if(pov[2*b]>pov[2*b+1])//нахождение точек пересечения со сторонами широкго луча и добавление данных координат в массив newx
+    				 if(pov[2*b]>pov[2*b+1])//РЅР°С…РѕР¶РґРµРЅРёРµ С‚РѕС‡РµРє РїРµСЂРµСЃРµС‡РµРЅРёСЏ СЃРѕ СЃС‚РѕСЂРѕРЅР°РјРё С€РёСЂРѕРєРіРѕ Р»СѓС‡Р° Рё РґРѕР±Р°РІР»РµРЅРёРµ РґР°РЅРЅС‹С… РєРѕРѕСЂРґРёРЅР°С‚ РІ РјР°СЃСЃРёРІ newx
     				 {
     					 double rrr = (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
         				 newx[1]=(int) (rrr);
@@ -285,21 +296,22 @@ public class World //рисование мира треугольников и широких лучей
         				 int rrr12=(int)(koef2*rrr2+b2);
         				 newy[2]=rrr12;
     				 }
-    				 figure_inside.add(new FigureInside(newx,newy,3));//добавление фигуры, являющейся пересечением широкого луча и треугольника
+    				 figure_inside.add(new FigureInside(newx,newy,3));//РґРѕР±Р°РІР»РµРЅРёРµ С„РёРіСѓСЂС‹, СЏРІР»СЏСЋС‰РµР№СЃСЏ РїРµСЂРµСЃРµС‡РµРЅРёРµРј С€РёСЂРѕРєРѕРіРѕ Р»СѓС‡Р° Рё С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
     				 //figure_inside.get(count).draw4(g);
     				 double first = (double)Math.sqrt(Math.pow(newy[1]-newy[0],2)+Math.pow(newx[1]-newx[0],2));
     				 double second = (double)Math.sqrt(Math.pow(newy[2]-newy[1],2)+Math.pow(newx[2]-newx[1],2));
     				 double third = (double)Math.sqrt(Math.pow(newy[2]-newy[0],2)+Math.pow(newx[2]-newx[0],2));
-    				 double p =(double)(first+second+third)/2;//полупериметр
-    				 double S = (double)Math.sqrt(p*(p-first)*(p-second)*(p-third));//герон
-    				 bigsum.add(new SUMMA(S));//добавление данной суммы в массив сумм, чтобы потом нарисовать только нужную наибольшую площадь
-    				 if(S>BIGSUMMA)//если сумма вычисленная > суммы, которая была до вычилсения, то запоминаем номер и присваиваем сумме значение максимальной
+    				 double p =(double)(first+second+third)/2;//РїРѕР»СѓРїРµСЂРёРјРµС‚СЂ
+    				 double S = (double)Math.sqrt(p*(p-first)*(p-second)*(p-third));//РіРµСЂРѕРЅ
+    				 bigsum.add(new SUMMA(S));//РґРѕР±Р°РІР»РµРЅРёРµ РґР°РЅРЅРѕР№ СЃСѓРјРјС‹ РІ РјР°СЃСЃРёРІ СЃСѓРјРј, С‡С‚РѕР±С‹ РїРѕС‚РѕРј РЅР°СЂРёСЃРѕРІР°С‚СЊ С‚РѕР»СЊРєРѕ РЅСѓР¶РЅСѓСЋ РЅР°РёР±РѕР»СЊС€СѓСЋ РїР»РѕС‰Р°РґСЊ
+    				 if(S>BIGSUMMA)//РµСЃР»Рё СЃСѓРјРјР° РІС‹С‡РёСЃР»РµРЅРЅР°СЏ > СЃСѓРјРјС‹, РєРѕС‚РѕСЂР°СЏ Р±С‹Р»Р° РґРѕ РІС‹С‡РёР»СЃРµРЅРёСЏ, С‚Рѕ Р·Р°РїРѕРјРёРЅР°РµРј РЅРѕРјРµСЂ Рё РїСЂРёСЃРІР°РёРІР°РµРј СЃСѓРјРјРµ Р·РЅР°С‡РµРЅРёРµ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№
     				 {
     					BIGSUMMA=S; 
     					t=count;
     				 }
     				 count+=1;
     				 System.out.println(S);
+    				 System.out.println("VERH");
     			 }
     			 if(pointsvnutri.size()==2&&pointsleva.size()==1)
     			 {
@@ -343,8 +355,9 @@ public class World //рисование мира треугольников и широких лучей
     				 }
     				 count+=1;
     				 System.out.println(S);
+    				 System.out.println("SLEVAODNA");
      			 }
-    			 if( (pointsvnutri.size()==1) && (pointsleva.size()==2) )//дальше идет то же самое рассмотрение случаев - 1 внутри  - две слева и.т.д..
+    			 if( (pointsvnutri.size()==1) && (pointsleva.size()==2) )//РґР°Р»СЊС€Рµ РёРґРµС‚ С‚Рѕ Р¶Рµ СЃР°РјРѕРµ СЂР°СЃСЃРјРѕС‚СЂРµРЅРёРµ СЃР»СѓС‡Р°РµРІ - 1 РІРЅСѓС‚СЂРё  - РґРІРµ СЃР»РµРІР° Рё.С‚.Рґ..
     			 {
     				 newtriangles.add(new Triangles(triangles.get(i).x,triangles.get(i).y));
     				 newx[0]=pointsvnutri.get(0).x;
@@ -362,6 +375,8 @@ public class World //рисование мира треугольников и широких лучей
     				 int rrr12=(int)(koef2*rrr2+b2);
     				 newy[2]=rrr12;
     				 figure_inside.add(new FigureInside(newx,newy,3));
+    				 System.out.println(newx[1]);
+    				 System.out.println(figure_inside.get(count).x[1]);
     				 //figure_inside.get(count).draw4(g);
     				 double first = (double)Math.sqrt(Math.pow(newy[1]-newy[0],2)+Math.pow(newx[1]-newx[0],2));
     				 double second = (double)Math.sqrt(Math.pow(newy[2]-newy[1],2)+Math.pow(newx[2]-newx[1],2));
@@ -376,6 +391,7 @@ public class World //рисование мира треугольников и широких лучей
     				 }
     				 count+=1; 
     				 System.out.println(S);
+    				 System.out.println("SLEVADVE");
     			 }
     			 if(pointsvnutri.size()==3)
     			 {
@@ -395,6 +411,7 @@ public class World //рисование мира треугольников и широких лучей
     				 }
     				 count+=1;
     				 System.out.println(S);
+    				 System.out.println("VNUTRI");
     			 }
     			 if(pointsvnutri.size()==2&&pointsverh.size()==1)
     			 {
@@ -444,15 +461,16 @@ public class World //рисование мира треугольников и широких лучей
     				 double S2 = (double)Math.sqrt(p2*(p2-first2)*(p2-second2)*(p2-third2));
     				 double S=S1+S2;
     				 bigsum.add(new SUMMA(S));
-    				 /*if(S>BIGSUMMA)
+    				 if(S>BIGSUMMA)
     				 {
     					 BIGSUMMA=S; 
     					 t=count;
-    				 }*/
+    				 }
     				 count+=1;
     				 System.out.println(S);
+    				 System.out.println("VNIZODNA");
      			 }
-    			 /*if(pointsvnutri.size()==2&&pointsvniz.size()==1)
+    			 if(pointsvnutri.size()==2&&pointsvniz.size()==1)
     			 {
     				 newtriangles.add( new Triangles(triangles.get(i).x,triangles.get(i).y));
     				 newxx[1]=pointsvnutri.get(0).x;
@@ -488,11 +506,11 @@ public class World //рисование мира треугольников и широких лучей
     				 int n = 4;
     				 figure_inside.add(new FigureInside(newxx,newyy,n));
     				 //figure_inside.get(count).draw4(g);
-    				 first = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[1]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[1]-figure_inside.get(count).x[0],2));
-    				 second = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[1],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[1],2));
-    				 third = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
-    				 p =(double)(first+second+third)/2;
-    				 S = (double)Math.sqrt(p*(p-first)*(p-second)*(p-third));
+    				 double first = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[1]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[1]-figure_inside.get(count).x[0],2));
+    				 double second = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[1],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[1],2));
+    				 double third = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
+    				 double p =(double)(first+second+third)/2;
+    				 double S = (double)Math.sqrt(p*(p-first)*(p-second)*(p-third));
     				 bigsum.add(new SUMMA(S));
     				 if(S>BIGSUMMA)
     				 {
@@ -501,13 +519,17 @@ public class World //рисование мира треугольников и широких лучей
     				 }
     				 count+=1;
     				 System.out.println(S);
-     			 }*/
-    			 pointsvnutri.clear();//обнуляются массивы точек
+     			 }
+    			 pointsvnutri.clear();//РѕР±РЅСѓР»СЏСЋС‚СЃСЏ РјР°СЃСЃРёРІС‹ С‚РѕС‡РµРє
     			 pointsvniz.clear();
     			 pointsverh.clear();
     			 pointsleva.clear();
     		 }
-    		 System.out.println(BIGSUMMA);//выводится наибольшая сумма
+    		 System.out.println(BIGSUMMA);//РІС‹РІРѕРґРёС‚СЃСЏ РЅР°РёР±РѕР»СЊС€Р°СЏ СЃСѓРјРјР°
+    		 for(int i=0; i<bigsum.size();++i)
+    		 {
+    			 System.out.println(bigsum.get(i).sum);
+    		 }
     	 }
     }
 }
