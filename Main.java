@@ -12,30 +12,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 public class Main 
 {
-	static boolean drawMode=false; // отвечает за возможность задавания точек исходных треугольников на экранеы
-	static ArrayList <Dot> dots= new ArrayList<Dot>(); //массив точек треугольников, отображаемых на экране
+	static boolean drawMode=false; // РѕС‚РІРµС‡Р°РµС‚ Р·Р° РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ Р·Р°РґР°РІР°РЅРёСЏ С‚РѕС‡РµРє РёСЃС…РѕРґРЅС‹С… С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ РЅР° СЌРєСЂР°РЅРµС‹
+	static ArrayList <Dot> dots= new ArrayList<Dot>(); //РјР°СЃСЃРёРІ С‚РѕС‡РµРє С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ, РѕС‚РѕР±СЂР°Р¶Р°РµРјС‹С… РЅР° СЌРєСЂР°РЅРµ
 	public static void main(String[] args) throws InterruptedException, IOException 
     {
-        JFrame frame = new JFrame("Проект"); // создаем Frame
+        JFrame frame = new JFrame("РџСЂРѕРµРєС‚"); // СЃРѕР·РґР°РµРј Frame
         World world = new World();
         TrianglePanel panel = new TrianglePanel(world);
         frame.add(panel);
         panel.setBackground(Color.black);
         frame.setSize(TrianglePanel.WIDTH, TrianglePanel.HEIGHT);
-        JButton button = new JButton("Рисование точек треугольника");//при нажатии на кнопку с помощью нажатия мышки на экран можно вводить координаты вершин треугольников, пока на экране не нарисуется ответ
+        JButton button = new JButton("Р РёСЃРѕРІР°РЅРёРµ С‚РѕС‡РµРє С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°");//РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ СЃ РїРѕРјРѕС‰СЊСЋ РЅР°Р¶Р°С‚РёСЏ РјС‹С€РєРё РЅР° СЌРєСЂР°РЅ РјРѕР¶РЅРѕ РІРІРѕРґРёС‚СЊ РєРѕРѕСЂРґРёРЅР°С‚С‹ РІРµСЂС€РёРЅ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ, РїРѕРєР° РЅР° СЌРєСЂР°РЅРµ РЅРµ РЅР°СЂРёСЃСѓРµС‚СЃСЏ РѕС‚РІРµС‚
         button.setBackground(Color.black);
         button.setForeground(Color.white);
-        JButton button2 = new JButton("Нажмите для окончания ввода точек");//при нажатии на кнопку возможность задавания точек треугольника отключается 
+        JButton button2 = new JButton("РќР°Р¶РјРёС‚Рµ РґР»СЏ РѕРєРѕРЅС‡Р°РЅРёСЏ РІРІРѕРґР° С‚РѕС‡РµРє");//РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° РєРЅРѕРїРєСѓ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ Р·Р°РґР°РІР°РЅРёСЏ С‚РѕС‡РµРє С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РѕС‚РєР»СЋС‡Р°РµС‚СЃСЏ 
         button2.setBackground(Color.black);
         button2.setForeground(Color.white);
-        JButton pauseButton = new JButton("Нарисовать треугольники и широкие лучи");
-        JButton helloWorldButton = new JButton("Показать результат");
+        JButton pauseButton = new JButton("РќР°СЂРёСЃРѕРІР°С‚СЊ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРё Рё С€РёСЂРѕРєРёРµ Р»СѓС‡Рё");
+        JButton helloWorldButton = new JButton("РџРѕРєР°Р·Р°С‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚");
         pauseButton.setBackground(Color.black);
         pauseButton.setForeground(Color.white);
         helloWorldButton.setBackground(Color.black);
         helloWorldButton.setForeground(Color.white);
         pauseButton.addActionListener(new MyMouseListener(panel));
-        // Вторая кнопка должна выводить сообщение в консоль
+        panel.addMouseListener(new MyMouseListener(panel) );
+        panel.addMouseMotionListener(new MyMouseListener(panel));
+        // Р’С‚РѕСЂР°СЏ РєРЅРѕРїРєР° РґРѕР»Р¶РЅР° РІС‹РІРѕРґРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ РІ РєРѕРЅСЃРѕР»СЊ
         helloWorldButton.addActionListener(new ActionListener() {
 			@Override
         	public void actionPerformed(ActionEvent e) 
@@ -74,10 +76,7 @@ public class Main
         controls.add(button);
         controls.add(button2);
         controls.add(pauseButton);
-        controls.add(helloWorldButton);
-        MyMouseListener mouselistener = new MyMouseListener();
-        panel.addMouseListener(mouselistener);
-        panel.addMouseMotionListener(mouselistener);
+        controls.add(helloWorldButton);   
         frame.setLayout(new BorderLayout());
         frame.add(panel,BorderLayout.CENTER);
         frame.add(controls,BorderLayout.NORTH);
@@ -106,7 +105,7 @@ public class Main
         	}
         	for (int i =0 ; i<dots.size(); i++)
         	{
-        		dots.get(i).draw(panel.getGraphics());//рисование точек на экране
+        		dots.get(i).draw(panel.getGraphics());//СЂРёСЃРѕРІР°РЅРёРµ С‚РѕС‡РµРє РЅР° СЌРєСЂР°РЅРµ
         	}
         	Thread.sleep(10);
         }
