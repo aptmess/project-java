@@ -54,7 +54,6 @@ public class World //рисование мира треугольников и �
 	}
 	void drawtriangles2(Graphics g)
 	{
-		System.out.println(triangles.size());
 		for (int i = 0; i < triangles.size(); ++i)//рисование исходных треугольников
 		{
 			triangles.get(i).draw1(g);
