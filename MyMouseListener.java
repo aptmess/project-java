@@ -35,16 +35,16 @@ public class MyMouseListener implements MouseMotionListener,MouseListener,Action
 	{
 		if (Main.drawMode==true)
 		{
-			Main.dots.add(new Dot(e.getX(), e.getY()));//добавляем в массив точек-координат треугольника
-			world.dots.add(new Dot(e.getX(), e.getY()));
+			Main.dots.add(new Dot(e.getX(), e.getY()));//РґРѕР±Р°РІР»СЏРµРј РІ РјР°СЃСЃРёРІ С‚РѕС‡РµРє-РєРѕРѕСЂРґРёРЅР°С‚ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+			Main.world.dots.add(new Dot(e.getX(), e.getY()));
 	
-			if(world.dots.size()==3)//если количество вершин 3- то добавляется в массив треугольников!
+			if(Main.world.dots.size()==3)//РµСЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ РІРµСЂС€РёРЅ 3- С‚Рѕ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РІ РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ!
 			{
-				world.updates11();//добавляется в массив треугольников!
-				System.out.println(world.triangles.size());
-				world.dots.clear();//обнуляется массив
+				Main.world.updates11();//РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РІ РјР°СЃСЃРёРІ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ!
+				System.out.println(Main.world.triangles.size());
+				Main.world.dots.clear();//РѕР±РЅСѓР»СЏРµС‚СЃСЏ РјР°СЃСЃРёРІ
 			}
-			if(world.amount_of_triangles==world.triangles.size())//если количество точек совпадает с количеством треугольников
+			if(Main.world.amount_of_triangles==Main.world.triangles.size())//РµСЃР»Рё РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕС‡РµРє СЃРѕРІРїР°РґР°РµС‚ СЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
 			{
 				panel.setPaused3(true);//????????????
 			}
