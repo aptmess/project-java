@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.Random;
 import java.util.ArrayList;
 public class World //рисование мира треугольников и широких лучей
-{	int amount_of_triangles =5; //задается количество треугольников
+{	int amount_of_triangles = 5; //задается количество треугольников
 	int amount_of_wideluch =1; //задается количество широких лучей
 	int gran =200; //задается окоемка границы, в пределах данной границы будут генерироваться случайно заданные точки
 	int vnutri=0;//переменная-счетчик, отвечающая за подсчет количества точек треугольника, входящих в широкий луч
@@ -31,6 +31,15 @@ public class World //рисование мира треугольников и �
 	int count=0;
 	int t=0;
 	int b=1;
+	double koef1;
+	double koef2;
+	double b1;
+	double b2;
+	double rrr;
+	double rrr2;
+	double rrr1;
+	double rrr12;
+
 	public ArrayList <Dot> dots= new ArrayList<>();
 	void drawtriangles(Graphics g)
 	{
@@ -50,7 +59,8 @@ public class World //рисование мира треугольников и �
 		for (int i = 0; i < wideLuch.size(); ++i)//рисование широких лучей
 		{
 			wideLuch.get(i).draw1(g);
-		} 
+		}
+	
 	}
 	void drawtriangles2(Graphics g)
 	{
@@ -79,15 +89,15 @@ public class World //рисование мира треугольников и �
 				{
 					//newtriangles.get(i).draw1(g);
 				}
-			for( int i =0; i< bigsum.size();++i)
-			{
-				if(bigsum.get(i).sum==BIGSUMMA)
+				for( int i =0; i< bigsum.size();++i)
 				{
-					figure_inside.get(i).draw4(g);
-					newtriangles.get(i).draw1(g);
+					if(bigsum.get(i).sum==BIGSUMMA)
+					{
+						newtriangles.get(i).draw1(g);
+						figure_inside.get(i).draw4(g);
+						
+					}	
 				}
-					
-			}
 			
 			}
     }
@@ -221,31 +231,31 @@ public class World //рисование мира треугольников и �
     				 newtriangles.add( new Triangles(triangles.get(i).x,triangles.get(i).y));
     				 newx[0]=pointsvnutri.get(0).x;
     				 newy[0]=pointsvnutri.get(0).y;
-    				 double koef1=(double)((pointsverh.get(0).y-pointsvnutri.get(0).y)/(pointsverh.get(0).x-pointsvnutri.get(0).x));
-    				 double b1 = (double)((pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef1));
-    				 double koef2=(double)((pointsverh.get(1).y-pointsvnutri.get(0).y)/(pointsverh.get(1).x-pointsvnutri.get(0).x));
-    				 double b2 = (double)((pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef2));
-    				 if(pov[2*b]<pov[2*b+1])
-    				 {
-    					 double rrr = (b1-pov[2*b])/(koef[2*b+1]-koef1);	
-        				 newx[1]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b])/(koef[2*b+1]-koef2);
-        				 newx[2]=(int) (rrr2);
-        				 int rrr1=(int)(koef1*rrr+b1);
-        				 newy[1]=rrr1;
-        				 int rrr12=(int)(koef2*rrr2+b2);
-        				 newy[2]=rrr12;
-    				 }
+    				 koef1=(double)(pointsverh.get(0).y-pointsvnutri.get(0).y)/(pointsverh.get(0).x-pointsvnutri.get(0).x);
+    				 b1 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef1);
+    				 koef2=(double)(pointsverh.get(1).y-pointsvnutri.get(0).y)/(pointsverh.get(1).x-pointsvnutri.get(0).x);
+    				 b2 = (double)(pointsverh.get(1).y-pointsverh.get(1).x*koef2);
     				 if(pov[2*b]>pov[2*b+1])
     				 {
-    					 double rrr = (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+    					 rrr =(double) (b1-pov[2*b])/(koef[2*b+1]-koef1);	
         				 newx[1]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        				 rrr2 = (double)(b2-pov[2*b])/(koef[2*b+1]-koef2);
         				 newx[2]=(int) (rrr2);
-        				 int rrr1=(int)(koef1*rrr+b1);
-        				 newy[1]=rrr1;
-        				 int rrr12=(int)(koef2*rrr2+b2);
-        				 newy[2]=rrr12;
+        				 rrr1=(double)(koef1*rrr+b1);
+        				 newy[1]=(int) rrr1;
+        				 rrr12=(double)(koef2*rrr2+b2);
+        				 newy[2]=(int) rrr12;
+    				 }
+    				 if(pov[2*b]<pov[2*b+1])
+    				 {
+    					 rrr = (double) (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+        				 newx[1]=(int) (rrr);
+        				 rrr2 =(double) (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        				 newx[2]=(int) (rrr2);
+        				 rrr1=(double)(koef1*rrr+b1);
+        				 newy[1]=(int)rrr1;
+        				 rrr12=(double)(koef2*rrr2+b2);
+        				 newy[2]=(int)rrr12;
     				 }
     				 figure_inside.add(new FigureInside(newx,newy,3));
     				 //figure_inside.get(count).draw4(g);
@@ -269,31 +279,31 @@ public class World //рисование мира треугольников и �
     				 newtriangles.add(new Triangles(triangles.get(i).x,triangles.get(i).y));//добавление в массив треугольников, которые могут иметь наибольшую площадь пересечения
     				 newx[0]=pointsvnutri.get(0).x;//первый элемент в массиве координат x новой фигуры , образованной при пересечении треугольника и широкого луча
     				 newy[0]=pointsvnutri.get(0).y;//первый элемент в массиве координат y новой фигуры , образованной при пересечении треугольника и широкого луча
-    				 double koef1=(double)(pointsvniz.get(0).y-pointsvnutri.get(0).y)/(pointsvniz.get(0).x-pointsvnutri.get(0).x);//вычисление коэффициентов двух прямых через две точки
-    				 double b1 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef1);
-    				 double koef2=(double)(pointsvniz.get(1).y-pointsvnutri.get(0).y)/(pointsvniz.get(1).x-pointsvnutri.get(0).x);
-    				 double b2 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef2);
+    				 koef1=(double)(pointsvniz.get(0).y-pointsvnutri.get(0).y)/(pointsvniz.get(0).x-pointsvnutri.get(0).x);//вычисление коэффициентов двух прямых через две точки
+    				 b1 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef1);
+    				 koef2=(double)(pointsvniz.get(1).y-pointsvnutri.get(0).y)/(pointsvniz.get(1).x-pointsvnutri.get(0).x);
+    				 b2 = (double)(pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef2);
     				 if(pov[2*b]>pov[2*b+1])//нахождение точек пересечения со сторонами широкго луча и добавление данных координат в массив newx
     				 {
-    					 double rrr = (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+    					 rrr =(double ) (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
         				 newx[1]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        				 rrr2 =(double ) (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
         				 newx[2]=(int) (rrr2);
-        				 int rrr1=(int)(koef1*rrr+b1);
-        				 newy[1]=rrr1;
-        				 int rrr12=(int)(koef2*rrr2+b2);
-        				 newy[2]=rrr12;
+        				 rrr1 = (double )(koef1*rrr+b1);
+        				 newy[1]=(int)rrr1;
+        				 rrr12=(double )(koef2*rrr2+b2);
+        				 newy[2]=(int) rrr12;
     				 }
     				 if(pov[2*b]<pov[2*b+1])
     				 {
-    					 double rrr = (b1-pov[2*b])/(koef[2*b+1]-koef1);	
+    					 rrr =(double ) (b1-pov[2*b])/(koef[2*b+1]-koef1);	
         				 newx[1]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b])/(koef[2*b+1]-koef2);
+        				 rrr2 =(double ) (b2-pov[2*b])/(koef[2*b+1]-koef2);
         				 newx[2]=(int) (rrr2);
-        				 int rrr1=(int)(koef1*rrr+b1);
-        				 newy[1]=rrr1;
-        				 int rrr12=(int)(koef2*rrr2+b2);
-        				 newy[2]=rrr12;
+        				 rrr1=(double )(koef1*rrr+b1);
+        				 newy[1]=(int)rrr1;
+        				 rrr12=(double )(koef2*rrr2+b2);
+        				 newy[2]=(int) rrr12;
     				 }
     				 figure_inside.add(new FigureInside(newx,newy,3));//добавление фигуры, являющейся пересечением широкого луча и треугольника
     				 //figure_inside.get(count).draw4(g);
@@ -315,21 +325,22 @@ public class World //рисование мира треугольников и �
     			 if(pointsvnutri.size()==2&&pointsleva.size()==1)
     			 {
     				 newtriangles.add( new Triangles(triangles.get(i).x,triangles.get(i).y));
-    				 newxx[0]=pointsvnutri.get(0).x;
-    				 newyy[0]=pointsvnutri.get(0).y;
-    				 newxx[1]=pointsvnutri.get(1).x;
-    				 newyy[1]=pointsvnutri.get(1).y;
-    				 double koef1=(double)((pointsvnutri.get(0).y-pointsleva.get(0).y)/(pointsvnutri.get(0).x-pointsleva.get(0).x));
-    				 double b1 = (double)((pointsvnutri.get(1).y-(pointsvnutri.get(1).x)*(koef1)));
-    				 double koef2=(double)((pointsvnutri.get(1).y-pointsleva.get(0).y)/(pointsvnutri.get(1).x-pointsleva.get(0).x));
-    				 double b2 = (double)((pointsvnutri.get(0).y-(pointsvnutri.get(0).x)*(koef2)));
-    				 double rrr = (double)(b1-no[b])/(koef[2*b]-koef1);	
+    				 newxx[1]=pointsvnutri.get(0).x;
+    				 newyy[1]=pointsvnutri.get(0).y;
+    				 newxx[0]=pointsvnutri.get(1).x;
+    				 newyy[0]=pointsvnutri.get(1).y;
+    				 koef1=(double)(pointsvnutri.get(0).y-pointsleva.get(0).y)/(pointsvnutri.get(0).x-pointsleva.get(0).x);
+    				 b1 = (double)(pointsvnutri.get(0).y-(pointsvnutri.get(0).x)*(koef1));
+    				 koef2=(double)(pointsvnutri.get(1).y-pointsleva.get(0).y)/(pointsvnutri.get(1).x-pointsleva.get(0).x);
+    				 b2 = (double)(pointsvnutri.get(1).y-(pointsvnutri.get(1).x)*(koef2));
+   
+    				 rrr = (double)(b1-no[b])/(koef[2*b]-koef1);	
         			 newxx[2]=(int) (rrr); 
-        		     double rrr2 = (double)(b2-no[b])/(koef[2*b]-koef2);
+        		     rrr2 = (double)(b2-no[b])/(koef[2*b]-koef2);
         		     newxx[3]=(int) (rrr2);
-        		     double rrr1=(double)(koef1*rrr+b1);
+        		     rrr1=(double)(koef1*newxx[2]+b1);
         		     newyy[2]=(int) (rrr1);
-        		     double rrr12=(double)(koef2*rrr2+b2);
+        		     rrr12=(double)(koef2*newxx[3]+b2);
         			 newyy[3]=(int) (rrr12);
     				 
     				 int n = 4;
@@ -374,8 +385,6 @@ public class World //рисование мира треугольников и �
     				 int rrr12=(int)(koef2*rrr2+b2);
     				 newy[2]=rrr12;
     				 figure_inside.add(new FigureInside(newx,newy,3));
-    				 System.out.println(newx[1]);
-    				 System.out.println(figure_inside.get(count).x[1]);
     				 //figure_inside.get(count).draw4(g);
     				 double first = (double)Math.sqrt(Math.pow(newy[1]-newy[0],2)+Math.pow(newx[1]-newx[0],2));
     				 double second = (double)Math.sqrt(Math.pow(newy[2]-newy[1],2)+Math.pow(newx[2]-newx[1],2));
@@ -419,31 +428,31 @@ public class World //рисование мира треугольников и �
     				 newyy[0]=pointsvnutri.get(0).y;
     				 newxx[1]=pointsvnutri.get(1).x;
     				 newyy[1]=pointsvnutri.get(1).y;
-    				 double koef1=(double)((-pointsverh.get(0).y+pointsvnutri.get(0).y)/(-pointsverh.get(0).x+pointsvnutri.get(0).x));
-    				 double b1 = (double)((pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef1));
-    				 double koef2=(double)((-pointsverh.get(0).y+pointsvnutri.get(1).y)/(-pointsverh.get(0).x+pointsvnutri.get(1).x));
-    				 double b2 = (double)((pointsvnutri.get(1).y-pointsvnutri.get(1).x*koef2));
+    				 koef1=(double)(pointsvnutri.get(0).y-pointsverh.get(0).y)/(pointsvnutri.get(0).x-pointsverh.get(0).x);
+    				 b1 = (double)(pointsvnutri.get(0).y-(pointsvnutri.get(0).x)*(koef1));
+    				 koef2=(double)(pointsvnutri.get(1).y-pointsverh.get(0).y)/(pointsvnutri.get(1).x-pointsverh.get(0).x);
+    				 b2 = (double)(pointsvnutri.get(1).y-(pointsvnutri.get(1).x)*(koef2));
     				 if(pov[2*b]<pov[2*b+1])
     				 {
-    					 double rrr = (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+    					 rrr = (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
         				 newxx[3]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        				 rrr2 = (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
         				 newxx[2]=(int) (rrr2);
-        				 double rrr1=(double)(koef1*rrr+b1);
+        				 rrr1=(double)(koef1*rrr+b1);
         				 newyy[3]=(int) (rrr1);
-        				 double rrr12=(double)(koef2*rrr2+b2);
+        				 rrr12=(double)(koef2*rrr2+b2);
         				 newyy[2]=(int) (rrr12);
     				 }
     				 if(pov[2*b]>pov[2*b+1])
     				 {
-    					 double rrr = (b1-pov[2*b])/(koef[2*b+1]-koef1);	
+    					 rrr = (b1-pov[2*b])/(koef[2*b+1]-koef1);	
         				 newxx[3]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b])/(koef[2*b+1]-koef2);
+        				 rrr2 = (b2-pov[2*b])/(koef[2*b+1]-koef2);
         				 newxx[2]=(int) (rrr2);
-        				 int rrr1=(int)(koef1*rrr+b1);
-        				 newyy[3]=rrr1;
-        				 int rrr12=(int)(koef2*rrr2+b2);
-        				 newyy[2]=rrr12;
+        				 rrr1=(int)(koef1*rrr+b1);
+        				 newyy[3]=(int) rrr1;
+        				 rrr12=(int)(koef2*rrr2+b2);
+        				 newyy[2]=(int) rrr12;
     				 }
     				 int n = 4;
     				 figure_inside.add(new FigureInside(newxx,newyy,n));
@@ -472,35 +481,35 @@ public class World //рисование мира треугольников и �
     			 if(pointsvnutri.size()==2&&pointsvniz.size()==1)
     			 {
     				 newtriangles.add( new Triangles(triangles.get(i).x,triangles.get(i).y));
-    				 newxx[1]=pointsvnutri.get(0).x;
-    				 newyy[1]=pointsvnutri.get(0).y;
-    				 newxx[0]=pointsvnutri.get(1).x;
-    				 newyy[0]=pointsvnutri.get(1).y;
-    				 double koef1=(double)((pointsvniz.get(0).y-pointsvnutri.get(0).y)/(pointsvniz.get(0).x-pointsvnutri.get(0).x));
-    				 double b1 = (double)((pointsvniz.get(0).y-pointsvniz.get(0).x*koef1));
-    				 double koef2=(double)((pointsvniz.get(0).y-pointsvnutri.get(1).y)/(pointsvniz.get(0).x-pointsvnutri.get(1).x));
-    				 double b2 = (double)((pointsvnutri.get(0).y-pointsvnutri.get(0).x*koef2));
+    				 newxx[0]=pointsvnutri.get(0).x;
+    				 newyy[0]=pointsvnutri.get(0).y;
+    				 newxx[1]=pointsvnutri.get(1).x;
+    				 newyy[1]=pointsvnutri.get(1).y;
+    				 koef1=(double)(pointsvnutri.get(0).y-pointsvniz.get(0).y)/(pointsvnutri.get(0).x-pointsvniz.get(0).x);
+    				 b1 = (double)(pointsvnutri.get(0).y-(pointsvnutri.get(0).x)*(koef1));
+    				 koef2=(double)(pointsvnutri.get(1).y-pointsvniz.get(0).y)/(pointsvnutri.get(1).x-pointsvniz.get(0).x);
+    				 b2 = (double)(pointsvnutri.get(1).y-(pointsvnutri.get(1).x)*(koef2));
     				 if(pov[2*b]>pov[2*b+1])
     				 {
-    					 double rrr = (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
-        				 newxx[2]=(int)(rrr);
-        				 double rrr2 = (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
-        				 newxx[3]=(int)(rrr2);
-        				 double rrr1=(double)(koef1*rrr+b1);
-        				 newyy[2]=(int)rrr1;
-        				 double rrr12=(double)(koef2*rrr2+b2);
-        				 newyy[3]=(int)rrr12;
+    					 rrr =(double) (b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+        				 newxx[3]=(int)(rrr);
+        				 rrr2 =(double) (b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        				 newxx[2]=(int)(rrr2);
+        				 rrr1=(double)(koef1*rrr+b1);
+        				 newyy[3]=(int)rrr1;
+        				 rrr12=(double)(koef2*rrr2+b2);
+        				 newyy[2]=(int)rrr12;
     				 }
     				 if(pov[2*b]<pov[2*b+1])
     				 {
-    					 double rrr = (b1-pov[2*b])/(koef[2*b+1]-koef1);	
+    					 rrr =(double) (b1-pov[2*b])/(koef[2*b+1]-koef1);	
         				 newxx[3]=(int) (rrr);
-        				 double rrr2 = (b2-pov[2*b])/(koef[2*b+1]-koef2);
+        				 rrr2 =(double) (b2-pov[2*b])/(koef[2*b+1]-koef2);
         				 newxx[2]=(int) (rrr2);
-        				 int rrr1=(int)(koef1*rrr+b1);
-        				 newyy[3]=rrr1;
-        				 int rrr12=(int)(koef2*rrr2+b2);
-        				 newyy[2]=rrr12;
+        				 rrr1=(double)(koef1*rrr+b1);
+        				 newyy[3]=(int)rrr1;
+        				 rrr12=(double)(koef2*rrr2+b2);
+        				 newyy[2]=(int)rrr12;
     				 }
     				 int n = 4;
     				 figure_inside.add(new FigureInside(newxx,newyy,n));
@@ -518,6 +527,105 @@ public class World //рисование мира треугольников и �
     				 }
     				 count+=1;
     				 System.out.println(S);
+    				 System.out.println("ВНИЗУ ОДНА ДВЕ ВНУТРИ");
+     			 }
+    			 if(pointsverh.size()==2&&pointsvniz.size()==1)
+    			 {
+    				 newtriangles.add( new Triangles(triangles.get(i).x,triangles.get(i).y));
+    				 koef1=(double)(pointsverh.get(0).y-pointsvniz.get(0).y)/(pointsverh.get(0).x-pointsvniz.get(0).x);
+    				 b1 = (double)(pointsverh.get(0).y-(pointsverh.get(0).x)*(koef1));
+    				 koef2=(double)(pointsverh.get(1).y-pointsvniz.get(0).y)/(pointsverh.get(1).x-pointsvniz.get(0).x);
+    				 b2 = (double)(pointsverh.get(1).y-(pointsverh.get(1).x)*(koef2));
+   
+    				 rrr = (double)(b1-pov[2*b])/(koef[2*b+1]-koef1);	
+        			 newxx[0]=(int) (rrr); 
+        		     rrr2 = (double)(b2-pov[2*b])/(koef[2*b+1]-koef2);
+        		     newxx[1]=(int) (rrr2);
+        		     rrr1=(double)(koef1*rrr+b1);
+        		     newyy[0]=(int) (rrr1);
+        		     rrr12=(double)(koef2*rrr2+b2);
+        			 newyy[1]=(int) (rrr12);
+        			 rrr = (double)(b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+        			 newxx[3]=(int) (rrr); 
+        		     rrr2 = (double)(b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        		     newxx[2]=(int) (rrr2);
+        		     rrr1=(double)(koef1*rrr+b1);
+        		     newyy[3]=(int) (rrr1);
+        		     rrr12=(double)(koef2*rrr2+b2);
+        			 newyy[2]=(int) (rrr12);
+    				 
+    				 int n = 4;
+    				 figure_inside.add(new FigureInside(newxx,newyy,n));
+    				 //figure_inside.get(count).draw4(g);
+    				 double first1 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[1]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[1]-figure_inside.get(count).x[0],2));
+    				 double second1 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[1],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[1],2));
+    				 double third1 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
+    				 double p1 =(double)(first1+second1+third1)/2;
+    				 double S1 = (double)Math.sqrt(p1*(p1-first1)*(p1-second1)*(p1-third1));
+    				 double first2 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[3]-figure_inside.get(count).y[2],2)+Math.pow(figure_inside.get(count).x[3]-figure_inside.get(count).x[2],2));
+    				 double second2 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[3]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[3]-figure_inside.get(count).x[0],2));
+    				 double third2 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
+    				 double p2 =(double)(first2+second2+third2)/2;
+    				 double S2 = (double)Math.sqrt(p2*(p2-first2)*(p2-second2)*(p2-third2));
+    				 double S=S1+S2;
+    				 bigsum.add(new SUMMA(S));
+    				 if(S>BIGSUMMA)
+    				 {
+    					 BIGSUMMA=S; 
+    					 t=count;
+    				 }
+    				 count+=1;
+    				 System.out.println(S);
+    				 System.out.println("ВНИЗУ ОДНА ВВЕРХУ ДВЕ");
+     			 }
+    			 if(pointsvniz.size()==2&&pointsverh.size()==1)
+    			 {
+    				 newtriangles.add( new Triangles(triangles.get(i).x,triangles.get(i).y));
+    				 koef1=(double)(pointsvniz.get(0).y-pointsverh.get(0).y)/(pointsvniz.get(0).x-pointsverh.get(0).x);
+    				 b1 = (double)(pointsvniz.get(0).y-(pointsvniz.get(0).x)*(koef1));
+    				 koef2=(double)(pointsvniz.get(1).y-pointsverh.get(0).y)/(pointsvniz.get(1).x-pointsverh.get(0).x);
+    				 b2 = (double)(pointsvniz.get(1).y-(pointsvniz.get(1).x)*(koef2));
+   
+    				 rrr = (double)(b1-pov[2*b])/(koef[2*b+1]-koef1);	
+        			 newxx[0]=(int) (rrr); 
+        		     rrr2 = (double)(b2-pov[2*b])/(koef[2*b+1]-koef2);
+        		     newxx[1]=(int) (rrr2);
+        		     rrr1=(double)(koef1*rrr+b1);
+        		     newyy[0]=(int) (rrr1);
+        		     rrr12=(double)(koef2*rrr2+b2);
+        			 newyy[1]=(int) (rrr12);
+        			 rrr = (double)(b1-pov[2*b+1])/(koef[2*b+1]-koef1);	
+        			 newxx[3]=(int) (rrr); 
+        		     rrr2 = (double)(b2-pov[2*b+1])/(koef[2*b+1]-koef2);
+        		     newxx[2]=(int) (rrr2);
+        		     rrr1=(double)(koef1*rrr+b1);
+        		     newyy[3]=(int) (rrr1);
+        		     rrr12=(double)(koef2*rrr2+b2);
+        			 newyy[2]=(int) (rrr12);
+    				 
+    				 int n = 4;
+    				 figure_inside.add(new FigureInside(newxx,newyy,n));
+    				 //figure_inside.get(count).draw4(g);
+    				 double first1 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[1]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[1]-figure_inside.get(count).x[0],2));
+    				 double second1 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[1],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[1],2));
+    				 double third1 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
+    				 double p1 =(double)(first1+second1+third1)/2;
+    				 double S1 = (double)Math.sqrt(p1*(p1-first1)*(p1-second1)*(p1-third1));
+    				 double first2 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[3]-figure_inside.get(count).y[2],2)+Math.pow(figure_inside.get(count).x[3]-figure_inside.get(count).x[2],2));
+    				 double second2 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[3]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[3]-figure_inside.get(count).x[0],2));
+    				 double third2 = (double)Math.sqrt(Math.pow(figure_inside.get(count).y[2]-figure_inside.get(count).y[0],2)+Math.pow(figure_inside.get(count).x[2]-figure_inside.get(count).x[0],2));
+    				 double p2 =(double)(first2+second2+third2)/2;
+    				 double S2 = (double)Math.sqrt(p2*(p2-first2)*(p2-second2)*(p2-third2));
+    				 double S=S1+S2;
+    				 bigsum.add(new SUMMA(S));
+    				 if(S>BIGSUMMA)
+    				 {
+    					 BIGSUMMA=S; 
+    					 t=count;
+    				 }
+    				 count+=1;
+    				 System.out.println(S);
+    				 System.out.println("ВНИЗУ ВДЕ ВВЕРХУ ОДНА");
      			 }
     			 pointsvnutri.clear();//обнуляются массивы точек
     			 pointsvniz.clear();
@@ -525,6 +633,8 @@ public class World //рисование мира треугольников и �
     			 pointsleva.clear();
     		 }
     		 System.out.println(BIGSUMMA);//выводится наибольшая сумма
+    		 System.out.println(figure_inside.size());
+    		 System.out.println(newtriangles.size());
     		 for(int i=0; i<bigsum.size();++i)
     		 {
     			 System.out.println(bigsum.get(i).sum);
