@@ -2,7 +2,6 @@ package porjecttry;
 import javax.swing.*;
 import porjecttry.World;
 import java.awt.*;
-import java.io.IOException;
 public class TrianglePanel extends JPanel 
 {	
 	/**
@@ -13,7 +12,7 @@ public class TrianglePanel extends JPanel
 	boolean paused;
 	boolean paused2;
 	boolean paused3;
-	public static final int WIDTH = 1280;//размеры окна
+	public static final int WIDTH = 1280;//СЂР°Р·РјРµСЂС‹ РѕРєРЅР°
 	public static final int HEIGHT = 720;
     public boolean isPaused() {
         return paused;
@@ -33,7 +32,7 @@ public class TrianglePanel extends JPanel
     public void setPaused3(boolean paused3) {
         this.paused3 = paused3;
     }
-    public TrianglePanel(World world)//создание мира треугольники - широкие лучи
+    public TrianglePanel(World world)//СЃРѕР·РґР°РЅРёРµ РјРёСЂР° С‚СЂРµСѓРіРѕР»СЊРЅРёРєРё - С€РёСЂРѕРєРёРµ Р»СѓС‡Рё
     {
     	this.world=world;
     	this.paused = false;
@@ -46,15 +45,15 @@ public class TrianglePanel extends JPanel
     	super.paintComponent(g);
     	if(this.paused==true)
     	{
-    		world.drawtriangles(g);//рисование мира
+    		world.drawtriangles(g);//СЂРёСЃРѕРІР°РЅРёРµ РјРёСЂР°
     	}
     	if(this.paused2==true)
     	{
-    		world.draw(g);//рисование мира
+    		world.draw(g);//СЂРёСЃРѕРІР°РЅРёРµ РјРёСЂР°
     	}
     	if(this.paused3==true)
     	{
-    		world.drawtriangles2(g);//рисование мира
+    		world.drawtriangles2(g);//СЂРёСЃРѕРІР°РЅРёРµ РјРёСЂР°
     	}
     }
 }
