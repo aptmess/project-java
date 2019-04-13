@@ -99,12 +99,10 @@ public class Main
         	{
         		frame.repaint();
         	}
-        	if(panel.paused3==false)
-        	{
+        	
         	for (int i =0 ; i<dots.size(); i++)
         	{
         		dots.get(i).draw(panel.getGraphics());//рисование точек на экране
-        	}
         	}
         	Thread.sleep(10);
         }
